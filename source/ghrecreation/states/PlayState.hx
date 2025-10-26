@@ -3230,6 +3230,12 @@ class PlayState extends MusicBeatState
 
 		spawnHoldSplashOnNote(note);
 
+		var gainHealth:Bool = true;
+		if (guitarHeroSustains && note.isSustainNote)
+			gainHealth = false;
+		if (gainHealth && note.sarahNote)
+			health += note.hitHealth * healthGain;
+
 		var result:Dynamic = callOnLuas('opponentNoteHit', [
 			notes.members.indexOf(note),
 			Math.abs(note.noteData),
