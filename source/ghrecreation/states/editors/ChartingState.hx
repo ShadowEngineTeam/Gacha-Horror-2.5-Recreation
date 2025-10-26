@@ -1919,7 +1919,7 @@ class ChartingState extends MusicBeatState
 				playtesting = true;
 				playtestingTime = Conductor.songPosition;
 				playtestingOnComplete = FlxG.sound.music.onComplete;
-				removeTouchPad();
+				touchPad.alpha = 0;
 				openSubState(new states.editors.EditorPlayState(playbackSpeed));
 			}
 			else if (FlxG.keys.justPressed.ENTER || touchPad.buttonA.justPressed)
@@ -2073,6 +2073,7 @@ class ChartingState extends MusicBeatState
 				{
 					FlxG.sound.music.pause();
 					updateCurStep();
+					pauseAndSetVocalsTime();
 					var time:Float = FlxG.sound.music.time;
 					var beat:Float = curDecBeat;
 					var snap:Float = quantization / 4;

@@ -6,6 +6,7 @@ class SustainSplash extends FlxSprite
 	public static var frameRate:Int;
 
 	public var strumNote:StrumNote;
+	public var parentGroup:FlxTypedGroup<SustainSplash>;
 
 	public var destroyTimer:FlxTimer;
 
@@ -26,7 +27,7 @@ class SustainSplash extends FlxSprite
 	override function update(elapsed:Float)
 	{
 		if (strumNote != null)
-			this.alpha = ClientPrefs.data.splashAlpha - (1 - strumNote.alpha);
+			this.alpha = strumNote.alpha * ClientPrefs.data.splashAlpha;
 		if (this.x != strumNote.x || this.y != strumNote.y)
 			setPosition(strumNote.x, strumNote.y);
 		/*if (this.angle != strumNote.angle)
@@ -44,7 +45,7 @@ class SustainSplash extends FlxSprite
 
 		clipRect = new flixel.math.FlxRect(0, !PlayState.isPixelStage ? 0 : -210, frameWidth, frameHeight);
 
-		if (end.shader != null)
+		if (end.shader != null && !PlayState.SONG.disableNoteRGB)
 		{
 			shader = new objects.NoteSplash.PixelSplashShaderRef().shader;
 			shader.data.r.value = end.shader.data.r.value;
@@ -114,14 +115,8 @@ class SustainSplash extends FlxSprite
 	{
 		kill();
 
-		if (FlxG.state is PlayState) // yes this is required otherwise it bugs the whole thing
-		{
-			PlayState.instance.grpHoldSplashes.remove(this);
-		}
-		/*
-			destroy();
-			super.destroy();
-		 */
+		if (parentGroup != null)
+			parentGroup.remove(this);
 
 		if (end != null)
 		{

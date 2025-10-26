@@ -2,8 +2,7 @@ local defaultNotePos = {}
 local spin = false
 local arrowMoveX = 14
 local arrowMoveY = 14
--- GHTODO
---local oppoNoteAlpha;
+local oppoNoteAlpha = 0;
 
 function onCreate()
     addCharacterToList('Isabelle', 'dad')
@@ -101,8 +100,7 @@ function onSongStart()
         noteTweenAngle("NoteAngle7", 2, 360, 0.25, cubeOut)
         noteTweenAngle("NoteAngle8", 3, 360, 0.25, cubeOut)
     end
-    -- GHTODO
-    --oppoNoteAlpha = getPropertyFromClass('states.PlayState', 'opponentStrums.members[0].alpha')
+    oppoNoteAlpha = getPropertyFromClass('states.PlayState', 'instance.oppoNoteAlpha')
 end
 
 function opponentNoteHit(id, direction, noteType, isSustainNote)
@@ -163,10 +161,10 @@ function onBeatHit()
         doTweenColor('dad.ColorTween', 'dad', '0xFFA14C4C', 0.05, 'quadInOut')
         setProperty('iconP2.flipX', false)
 
-        noteTweenAlpha("NoteMove52", 0, getProperty(oppoNoteAlpha), 0.01, 'cubeOut')
-        noteTweenAlpha("NoteMove62", 1, getProperty(oppoNoteAlpha), 0.01, 'cubeOut')
-        noteTweenAlpha("NoteMove72", 2, getProperty(oppoNoteAlpha), 0.01, 'cubeOut')
-        noteTweenAlpha("NoteMove82", 3, getProperty(oppoNoteAlpha), 0.01, 'cubeOut')
+        noteTweenAlpha("NoteMove52", 0, oppoNoteAlpha, 0.01, 'cubeOut')
+        noteTweenAlpha("NoteMove62", 1, oppoNoteAlpha, 0.01, 'cubeOut')
+        noteTweenAlpha("NoteMove72", 2, oppoNoteAlpha, 0.01, 'cubeOut')
+        noteTweenAlpha("NoteMove82", 3, oppoNoteAlpha, 0.01, 'cubeOut')
 
         if not middlescroll then
             noteTweenX(defaultPlayerStrumX0 .. 2, 4, defaultOpponentStrumX0, 0.5, "cubeOut")
