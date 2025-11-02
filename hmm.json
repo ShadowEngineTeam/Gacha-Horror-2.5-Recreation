@@ -52,7 +52,7 @@
     {
       "name": "hxdiscord_rpc",
       "type": "haxelib",
-      "version": "1.3.0"
+      "version": null
     },
     {
       "name": "linc_luajit",
