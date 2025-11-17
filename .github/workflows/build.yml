@@ -50,7 +50,7 @@ jobs:
 
       - name: Install Libraries
         run: |
-          haxelib install hmm --quiet
+          haxelib git hmm https://github.com/FNF-SE/hmm --quiet
           haxelib run hmm install --quiet
 
       - name: Configure Android
