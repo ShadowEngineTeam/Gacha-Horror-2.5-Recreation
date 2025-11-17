@@ -8,7 +8,7 @@ import options.OptionsState;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var shadowEngineVersion:String = '0.1.2*'; // asterisk cuz GHR has 0.2 backports.
+	public static var shadowEngineVersion:String = '0.1.2*'; // asterisk cuz GHR has SE 0.2.x backports.
 	public static var psychEngineVersion:String = '0.7.3';
 	public static var gachaHorrorVersion:String = '2.5'; // This is also used for Discord RPC
 	public static var curSelected:Int = 0;
