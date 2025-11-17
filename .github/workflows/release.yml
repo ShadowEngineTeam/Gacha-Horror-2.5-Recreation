@@ -152,7 +152,7 @@ jobs:
       - name: Download Windows ARM64 Build
         uses: actions/download-artifact@main
         with:
-          name: windowsBuild-arm64-ASTC
+          name: windowsBuild-arm64-S3TC
           path: /home/runner/windowsBuild-arm64
 
       - name: Zip Windows ARM64 Build For Release
