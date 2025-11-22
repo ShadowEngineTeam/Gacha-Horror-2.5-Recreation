@@ -158,10 +158,8 @@ class Framerate extends Sprite
 		super.__enterFrame(t);
 		bgSprite.alpha = debugAlpha * 0.5;
 
-		x = #if mobile FlxG.game.x + #end
-		10 + offset.x;
-		y = #if mobile FlxG.game.y + #end
-		2 + offset.y;
+		x = #if mobile FlxG.game.x + #end 10 + offset.x;
+		y = #if mobile FlxG.game.y + #end 2 + offset.y;
 
 		var width = MathUtil.maxSmart(fpsCounter.width, memoryCounter.width, shadowBuildField.width) + (x * 2);
 		var height = shadowBuildField.y + shadowBuildField.height;

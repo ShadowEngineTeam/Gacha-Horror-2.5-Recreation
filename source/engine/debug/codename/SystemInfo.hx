@@ -169,7 +169,7 @@ class SystemInfo extends FramerateCategory
 		}
 
 		#if cpp
-		totalMem = Std.string(MemoryUtil.getTotalMem() / 1024) + " GB";
+		totalMem = getSizeString(MemoryUtil.getTotalMem());
 		#end
 
 		try
@@ -181,7 +181,7 @@ class SystemInfo extends FramerateCategory
 			Log.error('Unable to grab RAM Type: $e');
 		}
 
-		totalSwapMem = Std.string(MemoryUtil.getTotalSwapMem() / 1024) + " GB";
+		totalSwapMem = getSizeString(MemoryUtil.getTotalSwapMem());
 		formatSysInfo();
 	}
 
