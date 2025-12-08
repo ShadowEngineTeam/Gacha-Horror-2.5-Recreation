@@ -41,13 +41,13 @@ jobs:
           - name: macOS x86_64
             os: macos-26
             buildArgs: "mac -final -64 -D HXCPP_M64 -D officialBuild"
-            assetType: PNG
+            assetType: S3TC
             artifactName: macOSBuild-x86_64
             artifactPath: export/release/macos/bin/*
           - name: macOS ARM64
             os: macos-26
             buildArgs: "mac -final -arm64 -D HXCPP_ARM64 -D officialBuild"
-            assetType: PNG
+            assetType: S3TC
             artifactName: macOSBuild-arm64
             artifactPath: export/release/macos/bin/*
           - name: Android
@@ -119,24 +119,24 @@ jobs:
       - name: Download macOS ARM64 Build
         uses: actions/download-artifact@main
         with:
-          name: macOSBuild-arm64-PNG
+          name: macOSBuild-arm64-S3TC
           path: /home/runner/macOSBuild-arm64
 
       - name: Tar macOS ARM64 Build For Release
         run: |
           cd /home/runner/macOSBuild-arm64
-          tar czf "/home/runner/${{ env.PROJECT_NAME }}-macOS-arm64.tar" .
+          tar czf "/home/runner/${{ env.PROJECT_NAME }}-S3TC-macOS-arm64.tar" .
 
       - name: Download macOS x86_64 Build
         uses: actions/download-artifact@main
         with:
-          name: macOSBuild-x86_64-PNG
+          name: macOSBuild-x86_64-S3TC
           path: /home/runner/macOSBuild-x86_64
 
       - name: Tar macOS x86_64 Build For Release
         run: |
           cd /home/runner/macOSBuild-x86_64
-          tar czf "/home/runner/${{ env.PROJECT_NAME }}-macOS-x86_64.tar" .
+          tar czf "/home/runner/${{ env.PROJECT_NAME }}-S3TC-macOS-x86_64.tar" .
 
       - name: Download Windows x86_64 Build
         uses: actions/download-artifact@main
