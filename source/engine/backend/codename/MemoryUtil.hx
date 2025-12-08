@@ -1,4 +1,4 @@
-package debug.codename.backend;
+package backend.codename;
 
 #if sys
 import sys.io.Process;
@@ -44,10 +44,10 @@ final class MemoryUtil
 			return -1;
 
 		char line[256];
-		while(fgets(line, sizeof(line), meminfo))
+		while (fgets(line, sizeof(line), meminfo))
 		{
 			int ram;
-			if(sscanf(line, "MemTotal: %d kB", &ram) == 1)
+			if (sscanf(line, "MemTotal: %d kB", &ram) == 1)
 			{
 				fclose(meminfo);
 				return (ram / 1024);
@@ -63,7 +63,7 @@ final class MemoryUtil
 		int64_t value = 0;
 		size_t length = sizeof(value);
 
-		if(-1 == sysctl(mib, 2, &value, &length, NULL, 0))
+		if (-1 == sysctl(mib, 2, &value, &length, NULL, 0))
 			return -1;
 
 		return value / 1024 / 1024;
@@ -90,14 +90,14 @@ final class MemoryUtil
 	@:functionCode('
 		FILE *meminfo = fopen("/proc/meminfo", "r");
 
-		if(meminfo == NULL)
+		if (meminfo == NULL)
 			return -1;
 
 		char line[256];
-		while(fgets(line, sizeof(line), meminfo))
+		while (fgets(line, sizeof(line), meminfo))
 		{
 			int swap;
-			if(sscanf(line, "SwapTotal: %d kB", &swap) == 1)
+			if (sscanf(line, "SwapTotal: %d kB", &swap) == 1)
 			{
 				fclose(meminfo);
 				return (swap / 1024);
@@ -107,12 +107,13 @@ final class MemoryUtil
 		fclose(meminfo);
 		return -1;
 	')
-	#elseif (mac || ios)
+	#elseif mac
 	@:functionCode('
 		struct xsw_usage swapInfo;
 		size_t size = sizeof(swapInfo);
 
-		if (sysctlbyname("vm.swapusage", &swapInfo, &size, nullptr, 0) != 0) {
+		if (sysctlbyname("vm.swapusage", &swapInfo, &size, nullptr, 0) != 0)
+		{
 			perror("sysctlbyname");
 			return 1;
 		}
@@ -123,7 +124,7 @@ final class MemoryUtil
 	@:functionCode('
 		PERFORMANCE_INFORMATION pi;
 		pi.cb = sizeof(pi);
-		if(GetPerformanceInfo(&pi, sizeof(pi)))
+		if (GetPerformanceInfo(&pi, sizeof(pi)))
 		{
 			SIZE_T totalSwap = (pi.CommitLimit - pi.PhysicalTotal) * pi.PageSize;
 			return (double)totalSwap / (1024.0 * 1024.0);
@@ -133,9 +134,7 @@ final class MemoryUtil
 	#end
 	#end
 	public static function getTotalSwapMem():Float
-	{
 		return 0;
-	}
 
 	/**
 	 * Gets the memory type of the system.

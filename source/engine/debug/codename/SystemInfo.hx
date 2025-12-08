@@ -1,7 +1,7 @@
 package debug.codename;
 
-import debug.codename.backend.MemoryUtil;
-import debug.codename.backend.RegisteryUtil;
+import backend.codename.MemoryUtil;
+import backend.codename.RegisteryUtil;
 import lime.utils.Log;
 #if android
 import android.os.Build;
@@ -41,6 +41,8 @@ class SystemInfo extends FramerateCategory
 
 	public static function init()
 	{
+		Log.throwErrors = false;
+
 		#if linux
 		var process = new Process("cat", ["/etc/os-release"]);
 		if (process.exitCode() != 0)
@@ -51,7 +53,7 @@ class SystemInfo extends FramerateCategory
 			var osVersion = "";
 			for (line in process.stdout.readAll().toString().split("\n"))
 			{
-				if (line.startsWith("PRETTY_NAME="))
+				if (line.startsWith("NAME="))
 				{
 					var index = line.indexOf('"');
 					if (index != -1)
@@ -115,27 +117,30 @@ class SystemInfo extends FramerateCategory
 		{
 			#if windows
 			cpuName = RegistryUtil.get(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", "ProcessorNameString");
-			#elseif (mac || ios)
+			#elseif mac
 			var process = new Process("sysctl -a | grep brand_string"); // Somehow this isn't able to use the args but it still works
 			if (process.exitCode() != 0)
 				throw 'Could not fetch CPU information';
 
 			cpuName = process.stdout.readAll().toString().trim().split(":")[1].trim();
 			#elseif linux
-			var process = new Process("cat", ["/proc/cpuinfo"]);
+			var process = new Process("lscpu", []);
 			if (process.exitCode() != 0)
-				throw 'Could not fetch CPU information';
-
+			    throw 'Could not fetch CPU information';
+			
 			for (line in process.stdout.readAll().toString().split("\n"))
 			{
-				if (line.indexOf("model name") == 0)
-				{
-					cpuName = line.substring(line.indexOf(":") + 2);
-					break;
-				}
+			    var trimmedLine = line.trim();
+			    if (trimmedLine.startsWith("Model name:"))
+			    {
+			        cpuName = trimmedLine.substr(trimmedLine.indexOf(":") + 1).trim();
+			        break;
+			    }
 			}
 			#elseif android
 			cpuName = (VERSION.SDK_INT >= VERSION_CODES.S) ? Build.SOC_MODEL : Build.HARDWARE;
+			#elseif ios
+			cpuName = "Apple SoC";
 			#end
 		}
 		catch (e)
@@ -180,6 +185,8 @@ class SystemInfo extends FramerateCategory
 		{
 			Log.error('Unable to grab RAM Type: $e');
 		}
+
+		Log.throwErrors = true;
 
 		totalSwapMem = getSizeString(MemoryUtil.getTotalSwapMem());
 		formatSysInfo();

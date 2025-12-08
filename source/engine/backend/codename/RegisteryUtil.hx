@@ -1,4 +1,4 @@
-package debug.codename.backend;
+package backend.codename;
 
 enum abstract RegistryHive(Int)
 {

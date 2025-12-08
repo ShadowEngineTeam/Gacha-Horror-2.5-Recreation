@@ -1,4 +1,4 @@
-package debug.codename.backend;
+package backend.codename;
 
 import haxe.macro.Expr;
 
