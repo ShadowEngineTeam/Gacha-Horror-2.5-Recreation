@@ -675,7 +675,12 @@ class Shader
 
 		if (complexBlendsSupported)
 		{
-			prefix += "#ifdef GL_KHR_blend_equation_advanced\nlayout (blend_support_all_equations) out;\n#endif\n";
+			prefix += "#ifdef GL_KHR_blend_equation_advanced\nlayout (blend_support_all_equations) out;\n#endif\n\n";
+		}
+		
+		if (__glVersion == "300 es" || __glVersion == "310 es" || __glVersion == "320 es")
+		{
+			prefix += "out vec4 openfl_FragColor;\n";
 		}
 
 		return prefix;
