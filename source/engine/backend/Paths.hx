@@ -14,7 +14,7 @@ import openfl.media.Sound;
 
 class Paths
 {
-	public static var IMAGE_EXT:String = #if ASTC "astc" #elseif ETC2 "ktx" #elseif S3TC "dds" #elseif PNG "png" #end;
+	public static var IMAGE_EXT:String = #if ASTC "astc" #elseif S3TC "dds" #elseif PNG "png" #end;
 	public static var IMAGE_ASSETTYPE:AssetType = #if (ASTC || ETC2 || S3TC) AssetType.BINARY #elseif PNG AssetType.IMAGE #end;
 	public static var LOADOLD:Bool = false;
 
