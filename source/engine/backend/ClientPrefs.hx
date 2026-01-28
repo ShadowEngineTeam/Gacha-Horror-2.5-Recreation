@@ -15,7 +15,12 @@ import states.TitleState;
 	#end
 	public var hitboxType:String = "Gradient";
 	public var popUpRating:Bool = true;
+	#if native
 	public var vsync:Bool = false;
+	#if android
+	public var downscaleGame:Bool = false;
+	#end
+	#end
 	public var gameOverVibration:Bool = false;
 
 	// end of Mobile and Mobile Controls Releated
