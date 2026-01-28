@@ -32,6 +32,8 @@ c<?xml version="1.0" encoding="utf-8"?>
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 
+	<template path="templates/haxe/ApplicationMain.hx" rename="../haxe/ApplicationMain.hx" />
+
 	<classpath name="source/engine" />
 	<classpath name="source/ghrecreation" />
 	<classpath name="source/library_shadows" />
