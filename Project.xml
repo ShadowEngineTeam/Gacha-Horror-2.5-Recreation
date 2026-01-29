@@ -118,7 +118,6 @@ c<?xml version="1.0" encoding="utf-8"?>
 
 	<!-- _________________________________ Custom Icons _______________________________ -->
 	
-	<assets path='icons/icon.png' rename='icon.png' if="linux || mac" />
 	<icon path="icons/icon.png" size='16' />
 	<icon path="icons/icon.png" size='32' />
 	<icon path="icons/icon.png" size='64' />

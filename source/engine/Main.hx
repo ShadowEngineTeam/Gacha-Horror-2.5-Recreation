@@ -18,9 +18,6 @@ import lime.ui.WindowVSyncMode;
 #end
 import states.TitleState;
 import openfl.events.KeyboardEvent;
-#if (linux || mac)
-import lime.graphics.Image;
-#end
 #if (linux && !debug)
 import hxgamemode.GamemodeClient;
 #end
@@ -86,6 +83,8 @@ class Main extends Sprite
 
 		trace(openfl.system.Capabilities.version);
 
+		trace(lime.graphics.opengl.GL.getParameter(lime.graphics.opengl.GL.MAX_TEXTURE_SIZE));
+
 		if (stage != null)
 		{
 			init();
@@ -136,11 +135,6 @@ class Main extends Sprite
 		#end
 		if (fpsVar != null)
 			fpsVar.visible = true;
-
-		#if (linux || mac)
-		final icon:Image = Image.fromFile("icon.png");
-		Lib.current.stage.window.setIcon(icon);
-		#end
 
 		#if desktop
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, toggleFullScreen);

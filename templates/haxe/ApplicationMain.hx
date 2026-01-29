@@ -7,7 +7,7 @@ import haxe.macro.Expr;
 #end
 
 #if ((linux || mac) && !macro)
-@:image('icons/desktop/iconOG.png')
+@:image('icons/icon.png')
 class ApplicationIcon extends lime.graphics.Image {}
 #end
 
