@@ -1,6 +1,6 @@
 package psychlua;
 
-import hxluajit.Types;
+import hxlua.Types;
 
 /**
  * Holds a Lua function that can be called from Haxe.

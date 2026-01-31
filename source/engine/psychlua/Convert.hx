@@ -2,7 +2,7 @@ package psychlua;
 
 import haxe.ds.*;
 import psychlua.FunkinLua.State;
-import hxluajit.Types;
+import hxlua.Types;
 
 /**
  * Some borrowed code from hxluajit-wrapper.

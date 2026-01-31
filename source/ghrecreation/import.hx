@@ -5,8 +5,8 @@ import backend.Discord;
 #end
 // Psych
 #if LUA_ALLOWED
-import hxluajit.*;
-import hxluajit.Types;
+import hxlua.*;
+import hxlua.Types;
 #end
 // Mobile Controls
 import mobile.objects.MobileControls;
