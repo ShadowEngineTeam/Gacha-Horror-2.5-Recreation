@@ -82,8 +82,7 @@ class Main extends Sprite
 		#end
 
 		trace(openfl.system.Capabilities.version);
-
-		trace(lime.graphics.opengl.GL.getParameter(lime.graphics.opengl.GL.MAX_TEXTURE_SIZE));
+		trace('MAX_TEXTURE_SIZE: ' + lime.graphics.opengl.GL.getParameter(lime.graphics.opengl.GL.MAX_TEXTURE_SIZE));
 
 		if (stage != null)
 		{
