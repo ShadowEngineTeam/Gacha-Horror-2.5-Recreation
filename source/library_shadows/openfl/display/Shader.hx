@@ -488,7 +488,15 @@ class Shader
 		if (failingLine != null) message = '\nFailed to simplify log:"$failingLine"\n$infoLog\n$source';
 
 		var typeName = (type == __context.gl.VERTEX_SHADER) ? "vertex" : "fragment";
-		if (isError) #if !macro openfl.Lib.application.window.alert('Error compiling $typeName shader $message', 'Shader Compile Error!') #else Log.error('Error compiling $typeName shader $message') #end;
+		if (isError)
+		{
+			#if !macro
+			trace(message);
+			openfl.Lib.application.window.alert('Error compiling $typeName shader $message', 'Shader Compile Error!');
+			#else
+			Log.error('Error compiling $typeName shader $message');
+			#end
+		}
 		else
 			Log.debug('Info compiling $typeName shader $message');
 	}
@@ -544,8 +552,7 @@ class Shader
 		{
 			input.__disableGL(__context, textureCount);
 			textureCount++;
-			if (textureCount == gl.MAX_TEXTURE_IMAGE_UNITS)
-				break;
+			if (textureCount == gl.MAX_TEXTURE_IMAGE_UNITS) break;
 		}
 
 		for (parameter in __paramBool)
@@ -621,15 +628,43 @@ class Shader
 		var extensions = "";
 
 		var extList = (isFragment ? __glFragmentExtensions : __glVertexExtensions);
+
 		for (ext in extList)
 		{
 			extensions += "#extension " + ext.name + " : " + ext.behavior + "\n";
 		}
 
+		var complexBlendsSupported = OpenGLRenderer.__complexBlendsSupported && isFragment;
+
+		#if lime
+		if (__context.__context.type == OPENGL)
+		{
+			complexBlendsSupported = complexBlendsSupported && (__glVersion == "150" || !StringTools.startsWith(__glVersion, "1"));
+		}
+		else if (__context.__context.type == OPENGLES)
+		{
+			complexBlendsSupported = complexBlendsSupported && !StringTools.startsWith(__glVersion, "1");
+		}
+		#end
+
+		if (complexBlendsSupported)
+		{
+			extensions += "#extension GL_KHR_blend_equation_advanced : enable\n";
+
+			#if lime
+			if (__context.__context.type == OPENGL)
+			{
+				// compiling without this gives the error
+				// 'gl_SampleID' : required extension not requested: GL_ARB_sample_shading
+				extensions += "#extension GL_ARB_sample_shading : enable\n";
+			}
+			#end
+		}
+
 		// #version must be the first directive and cannot be repeated,
 		// while #extension directives must be before any non-preprocessor tokens.
 
-		return "#version "
+		var prefix = "#version "
 			+ __glVersion
 			+ "
       "
@@ -645,6 +680,15 @@ class Shader
 			+ "
 				#endif
 				";
+
+		if (complexBlendsSupported)
+		{
+			prefix += "#ifdef GL_KHR_blend_equation_advanced\nlayout (blend_support_all_equations) out;\n#endif\n\n";
+		}
+
+		//prefix += "out vec4 openfl_FragColor;\n";
+
+		return prefix;
 	}
 
 	@:noCompletion private function __initGL():Void
@@ -921,8 +965,7 @@ class Shader
 						parameter.type = parameterType;
 						parameter.__arrayLength = arrayLength;
 						#if lime
-						if (arrayLength > 0)
-							parameter.__uniformMatrix = new Float32Array(arrayLength * arrayLength);
+						if (arrayLength > 0) parameter.__uniformMatrix = new Float32Array(arrayLength * arrayLength);
 						#end
 						parameter.__isFloat = true;
 						parameter.__isUniform = isUniform;
