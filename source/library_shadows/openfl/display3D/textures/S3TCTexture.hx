@@ -111,6 +111,10 @@ import openfl.Lib;
 		bytes.position = 84;
 		var formatName = bytes.readUTFBytes(4);
 
+		// idk S3TC is weird
+		if (formatName == "DXT4")
+			formatName = "DXT5";
+
 		return formatName;
 	}
 }
