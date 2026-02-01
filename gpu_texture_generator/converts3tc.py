@@ -82,10 +82,13 @@ def main():
 
                 command = [
                     texconv_tool,
-                    "-f", "DXT5",
+                    "-f", "BC3_UNORM",
                     "-m", "1",
                     "-if", "CUBIC",
                     "-bc", "u",
+                    "-srgb",
+					"-nologo",
+                    "-pmalpha",
                     "-y",
                     "-o", temp_output,
                     input_path
@@ -93,7 +96,6 @@ def main():
                 if wine_cmd:
                     command = [wine_cmd] + command
 
-                print(f"Converting {file} -> {final_dds_path}...")
                 run_command(command, use_wine=bool(wine_cmd))
 
                 if os.path.exists(temp_dds_path):

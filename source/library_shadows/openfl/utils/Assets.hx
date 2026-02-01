@@ -135,7 +135,7 @@ class Assets
 			}
 		}
 
-		for (ext in ['astc', 'dds'])
+		for (ext in ['astc', 'ktx', 'dds'])
 		{
 			final textureName:String = haxe.io.Path.withoutExtension(id) + '.$ext';
 
@@ -144,6 +144,7 @@ class Assets
 				final texture = switch (ext)
 				{
 					case 'astc': openfl.Lib.current.stage.context3D.createASTCTexture(Assets.getBytes(textureName));
+					case 'ktx': openfl.Lib.current.stage.context3D.createETC2Texture(Assets.getBytes(textureName));
 					case 'dds': openfl.Lib.current.stage.context3D.createS3TCTexture(Assets.getBytes(textureName));
 					default: null;
 				}

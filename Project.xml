@@ -45,6 +45,7 @@ c<?xml version="1.0" encoding="utf-8"?>
 	<assets path="assets/shared" if="ASTC || ETC2 || NOEMBED" />
 	<assets path="images-astc" rename="assets/shared/images" if="ASTC" />
 	<assets path="images-dds" rename="assets/shared/images" if="S3TC" />
+	<assets path="images-ktx" rename="assets/shared/images" if="ETC2" />
 	<assets path="images-png" rename="assets/shared/images" embed="true" if="PNG" unless="NOEMBED" />
 	<assets path="images-png" rename="assets/shared/images" if="PNG NOEMBED" />
 	

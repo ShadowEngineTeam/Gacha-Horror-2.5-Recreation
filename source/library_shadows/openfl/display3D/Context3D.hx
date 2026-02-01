@@ -8,6 +8,7 @@ import openfl.display3D._internal.GLTexture;
 import openfl.display._internal.SamplerState;
 import openfl.display3D.textures.ASTCTexture;
 import openfl.display3D.textures.CubeTexture;
+import openfl.display3D.textures.ETC2Texture;
 import openfl.display3D.textures.RectangleTexture;
 import openfl.display3D.textures.S3TCTexture;
 import openfl.display3D.textures.TextureBase;
@@ -134,6 +135,7 @@ import lime.math.Vector2;
 @:access(openfl.display3D._internal.Context3DState)
 @:access(openfl.display3D.textures.ASTCTexture)
 @:access(openfl.display3D.textures.CubeTexture)
+@:access(openfl.display3D.textures.ETC2Texture)
 @:access(openfl.display3D.textures.RectangleTexture)
 @:access(openfl.display3D.textures.S3TCTexture)
 @:access(openfl.display3D.textures.TextureBase)
@@ -940,6 +942,11 @@ import lime.math.Vector2;
 	public function createASTCTexture(data:ByteArray):ASTCTexture
 	{
 		return new ASTCTexture(this, data);
+	}
+
+	public function createETC2Texture(data:ByteArray):ETC2Texture
+	{
+		return new ETC2Texture(this, data);
 	}
 
 	public function createS3TCTexture(data:ByteArray):S3TCTexture
