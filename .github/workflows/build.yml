@@ -67,7 +67,7 @@ jobs:
 
       - name: Install Libraries
         run: |
-          haxelib git hmm https://github.com/FNF-SE/hmm --skip-dependencies --quiet
+          haxelib git hmm https://github.com/ShadowEngineTeam/hmm --skip-dependencies --quiet
           haxelib run hmm install --quiet
 
       - name: Configure Android

@@ -5,7 +5,7 @@
       "type": "git",
       "dir": null,
       "ref": "274424b01d2a276b0d60639f19291e0a96cd04ae",
-      "url": "https://github.com/FNF-SE/lime"
+      "url": "https://github.com/ShadowEngineTeam/lime"
     },
     {
       "name": "openfl",
@@ -19,35 +19,35 @@
       "type": "git",
       "dir": null,
       "ref": null,
-      "url": "https://github.com/FNF-SE/flixel"
+      "url": "https://github.com/ShadowEngineTeam/flixel"
     },
     {
       "name": "flixel-addons",
       "type": "git",
       "dir": null,
       "ref": null,
-      "url": "https://github.com/FNF-SE/flixel-addons"
+      "url": "https://github.com/ShadowEngineTeam/flixel-addons"
     },
     {
       "name": "flixel-ui",
       "type": "git",
       "dir": null,
       "ref": null,
-      "url": "https://github.com/FNF-SE/flixel-ui"
+      "url": "https://github.com/ShadowEngineTeam/flixel-ui"
     },
     {
       "name": "hxcpp",
       "type": "git",
       "dir": null,
       "ref": null,
-      "url": "https://github.com/FNF-SE/hxcpp"
+      "url": "https://github.com/ShadowEngineTeam/hxcpp"
     },
     {
       "name": "SScript",
       "type": "git",
       "dir": null,
       "ref": null,
-      "url": "https://github.com/FNF-SE/SScript"
+      "url": "https://github.com/ShadowEngineTeam/SScript"
     },
     {
       "name": "hxdiscord_rpc",
@@ -61,7 +61,7 @@
       "type": "git",
       "dir": null,
       "ref": null,
-      "url": "https://github.com/FNF-SE/hxlua"
+      "url": "https://github.com/ShadowEngineTeam/hxlua"
     },
     {
       "name": "hxgamemode",

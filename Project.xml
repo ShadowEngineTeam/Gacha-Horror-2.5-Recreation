@@ -2,7 +2,7 @@ c<?xml version="1.0" encoding="utf-8"?>
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Friday Night Funkin': Gacha Horror V2.5" file="HorrorPackage" packageName="com.homuhomu833.gachahorrorrecreation" package="com.homuhomu833.gachahorrorrecreation" main="Main" version="0.2.8" company="FNF-SE" />
+	<app title="Friday Night Funkin': Gacha Horror V2.5" file="HorrorPackage" packageName="com.homuhomu833.gachahorrorrecreation" package="com.homuhomu833.gachahorrorrecreation" main="Main" version="0.2.8" company="ShadowEngineTeam" />
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
 	<app preloader="flixel.system.FlxPreloader" />
