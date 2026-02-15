@@ -686,8 +686,6 @@ class Shader
 			prefix += "#ifdef GL_KHR_blend_equation_advanced\nlayout (blend_support_all_equations) out;\n#endif\n\n";
 		}
 
-		//prefix += "out vec4 openfl_FragColor;\n";
-
 		return prefix;
 	}
 

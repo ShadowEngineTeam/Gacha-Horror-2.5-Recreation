@@ -16,9 +16,6 @@ class Context3DMaskShader extends Shader
 
 		uniform sampler2D openfl_Texture;
 
-		// remove this if #version 100
-		out vec4 openfl_FragColor;
-
 		void main(void) {
 
 			vec4 color = texture2D (openfl_Texture, openfl_TextureCoordv);
