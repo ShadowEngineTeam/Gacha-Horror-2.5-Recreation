@@ -1,8 +1,8 @@
 package psychlua;
 
-import haxe.ds.*;
+import haxe.Constraints.IMap;
 import psychlua.FunkinLua.State;
-import hxlua.Types;
+import hxluajit.Types;
 
 /**
  * Some borrowed code from hxluajit-wrapper.
@@ -68,20 +68,21 @@ class Convert
 					toLua(l, elements[i]);
 					Lua.settable(l, -3);
 				}
-			case TClass(IntMap) | TClass(StringMap) | TClass(ObjectMap):
-				final values:Map<String, Dynamic> = v;
+			case TClass(IMap):
+				final map:IMap<Dynamic, Dynamic> = cast v;
 
-				Lua.createtable(l, Lambda.count(values), 0);
+				Lua.createtable(l, 0, Lambda.count(map));
 
-				for (key => value in values)
+				for (key => value in map)
 				{
-					Lua.pushstring(l, key);
+					Lua.pushstring(l, Std.string(key));
 					toLua(l, value);
 					Lua.settable(l, -3);
 				}
 			case TNull:
 				Lua.pushnil(l);
 			default:
+				// trace('toLua: ${Type.typeof(v)}');
 				Lua.pushnil(l);
 				return false;
 		}
@@ -106,7 +107,10 @@ class Convert
 				ret = new LuaFunction(cpp.Pointer.fromRaw(l), LuaL.ref(l, Lua.REGISTRYINDEX));
 			case type if (type == Lua.TUSERDATA || type == Lua.TLIGHTUSERDATA):
 				ret = cpp.Pointer.fromRaw(Lua.touserdata(l, idx));
+			case type if (type == Lua.TNIL):
+				ret = null;
 			default:
+				//trace('fromLua: ${Lua.type(l, idx)}');
 				ret = null;
 		}
 
