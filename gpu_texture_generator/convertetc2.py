@@ -6,7 +6,7 @@ import sys
 import numpy as np
 
 def get_compressonator_path():
-    exe = "compressonatorcli/compressonatorcli"
+    exe = "compressonatorcli/compressonatorcli.exe"
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
     local_path = os.path.join(script_dir, exe)
@@ -88,10 +88,7 @@ def main():
                 temp_path = os.path.join(output_dir, "_temp.png")
                 img.save(temp_path)
 
-            quality = pick_quality(width, height, edge_energy)
-
             command = [
-                "bash",
                 cli,
                 "-fd", "ETC2_RGBA", # COMPRESSED_RGBA2_ETC2_EAC
                 "-nomipmap",
