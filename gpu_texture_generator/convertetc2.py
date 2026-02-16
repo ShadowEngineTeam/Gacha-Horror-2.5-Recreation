@@ -53,6 +53,28 @@ def premultiply_alpha(img):
     return Image.fromarray(arr, mode="RGBA")
 
 
+def pad_to_multiple_of_4(img, anchor_top_left=True):
+    width, height = img.size
+
+    padded_w = (width + 3) & ~3
+    padded_h = (height + 3) & ~3
+
+    if padded_w == width and padded_h == height:
+        return img
+
+    new_img = Image.new("RGBA", (padded_w, padded_h), (0, 0, 0, 0))
+
+    if anchor_top_left:
+        offset_x = 0
+        offset_y = 0
+    else:
+        offset_x = (padded_w - width) // 2
+        offset_y = (padded_h - height) // 2
+
+    new_img.paste(img, (offset_x, offset_y))
+    return new_img
+
+
 def main():
     args = parse_args()
     input_folder = args.input
@@ -81,8 +103,21 @@ def main():
             )
 
             with Image.open(input_path) as img:
-                width, height = img.size
+                img = img.convert("RGBA")
+
+                original_width, original_height = img.size
                 edge_energy = compute_edge_energy(img)
+
+                # Check if matching XML exists (sprite sheet case)
+                xml_path = os.path.join(root, file.replace(".png", ".xml"))
+                has_xml = os.path.isfile(xml_path)
+
+                # Sprite sheets → anchor top-left
+                # Standalone textures → center
+                img = pad_to_multiple_of_4(img, anchor_top_left=has_xml)
+
+                padded_width, padded_height = img.size
+
                 img = premultiply_alpha(img)
 
                 temp_path = os.path.join(output_dir, "_temp.png")
@@ -99,7 +134,9 @@ def main():
 
             print(
                 f"Compressing {file} "
-                f"({width}x{height}, edge={edge_energy:.2f}) "
+                f"({original_width}x{original_height} → "
+                f"{padded_width}x{padded_height}, "
+                f"edge={edge_energy:.2f}) "
                 f"to {output_path}"
             )
 
